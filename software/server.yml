@@ -1,0 +1,7 @@
+---
+- name: Install requirements
+  action: apt pkg={{item}} state=installed
+  with_items:
+       - mosquitto
+       - mosquitto-clients
+      
