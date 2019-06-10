@@ -1,7 +1,151 @@
 ---
-- name: Install requirements
-  action: apt pkg={{item}} state=installed
-  with_items:
-       - mosquitto
-       - mosquitto-clients
+- hosts: localhost
+  vars:
+    ssid: pi_ap
+    wifi_password: pi_ap_password
+    mqtt_user: mqttuser
+    mqtt_password: mqttpassword
+    
+  tasks:
+  - name: Install MISC packages
+    action: apt pkg={{item}} state=installed
+    with_items:
+         - joe
+         - lsof
+         - netstat-nat
+    tags: misc
+  - name: Install AP packages
+    action: apt pkg={{item}} state=installed
+    with_items:
+         - hostapd
+         - dnsmasq
+    tags: ap
+  - name: Stop hostapd and dnsmasq services
+    service: name={{item}} state=stopped
+    with_items:
+      - hostapd
+      - dnsmasq
+    tags: ap
+  - name: DHCPCD configuration
+    lineinfile:
+      dest=/etc/dhcpcd.conf
+      line={{item}}
+      state=present
+      insertafter=EOF
+    with_items:
+      - "interface wlan0"
+      - "static ip_address=192.168.111.1/24"
+      - "nohook wpa_supplicant"
+    tags: ap
+  # If you are using Ansible > 2.3 replace dest for path
+  - name: Commenting all lines of dnsmasq.conf
+    replace:
+      dest: /etc/dnsmasq.conf
+      regexp: '(.*)'
+      replace: '#\1'
+    tags: ap
+    
+  - name: hostapd configuration
+    lineinfile:
+      dest=/etc/dnsmasq.conf
+      create=yes
+      line={{item}}
+      state=present
+      insertafter=EOF
+    with_items:
+      - "interface=wlan0"
+      - "dhcp-range=192.168.111.20,192.168.111.200,255.255.255.0,24h"
+    tags: ap
+    
+  - name: hostapd configuration
+    lineinfile:
+      dest=/etc/hostapd/hostapd.conf
+      create=yes
+      line={{item}}
+      state=present
+      insertafter=EOF
+    with_items:
+      - "interface=wlan0"
+      - "ssid={{ssid}}"
+      - "driver=nl80211"
+      - "hw_mode=g"
+      - "channel=7"
+      - "wmm_enabled=0"
+      - "macaddr_acl=0"
+      - "auth_algs=1"
+      - "ignore_broadcast_ssid=0"
+      - "wpa=2"
+      - "wpa_passphrase={{wifi_password}}"
+      - "wpa_key_mgmt=WPA-PSK"
+      - "wpa_pairwise=TKIP"
+      - "rsn_pairwise=CCMP"
+    tags: ap
+  - name: hostapd daemon default configuration
+    lineinfile:
+      dest=/etc/default/hostapd
+      line=DAEMON_CONF="/etc/hostapd/hostapd.conf"
+      state=present
+      insertafter=EOF
+    tags: ap
+  - name: Enable IPv4 forwarding
+    sysctl: name=net.ipv4.ip_forward value=1 sysctl_set=yes
+    tags: ap
+  - name: Add iptables rules
+    iptables: chain=POSTROUTING table=nat jump=MASQUERADE out_interface=eth0
+    tags: ap
+  - name: Save iptables rules
+    raw: "/sbin/iptables-save >  /etc/iptables.ipv4.nat"
+    tags: ap
+  - name: Add iptables save to rc.local
+    lineinfile: dest=/etc/rc.local line="iptables-restore < /etc/iptables.ipv4.nat" state=present create=yes insertbefore='^exit'
+    tags: ap
+  - name: Enable and restart dhcpcd/hostapd/dnsmasq
+    systemd: name={{item}} state=restarted enabled=yes masked=no
+    with_items:
+      - "dhcpcd"
+      - "hostapd"
+      - "dnsmasq"
+    tags: ap
+ 
+  - name: Install MQTT packages
+    action: >
+      {{ ansible_pkg_mgr }} name={{item}} state=present update_cache=yes
+    with_items:
+      - mosquitto
+      - mosquitto-clients
+    tags: mqtt
+  - name: Make sure mosquitto password file exists and have the proper user
+    file: dest=/etc/mosquitto/passwd state=touch owner=mosquitto mode=0600
+    tags: mqtt
+       
+  - name: Add user and password for  mosquitto file
+    raw: "/usr/bin/mosquitto_passwd -b /etc/mosquitto/passwd {{mqtt_user}} {{mqtt_password}}"
+    tags: mqtt
+     
+  - name: Add mosquitto password file to the configuration
+    lineinfile: dest=/etc/mosquitto/conf.d/default.conf line={{item}} state=present create=yes insertafter=EOF
+    with_items:
+      - "allow_anonymous false"
+      - "password_file /etc/mosquitto/passwd"
+    tags: mqtt
+       
+  - name: Restart mosquitto service
+    service: name=mosquitto state=restarted enabled=yes
+    tags: mqtt
+     
+  - name: Install npm and requirements
+    action: >
+      {{ ansible_pkg_mgr }} name={{item}} state=present update_cache=yes
+    with_items:
+      - npm
+      - build-essential
+    tags: npm
+  
+  - name: Update npm
+    raw: "/usr/bin/npm install -g npm"
+    tags: npm
       
+  - name: Install Node Red packages
+    # Not using npm module as we need ansible 2.8 to support unsafe_perm
+    raw: "/usr/local/bin/npm install -g --unsafe-perm node-red node-red-admin"
+    tags: npm
