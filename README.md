@@ -2,7 +2,8 @@
 Alarm based on esp32 modules
 
 ## Description
-Have a home alarm system using esp32 modules with some sensors
+Have a home alarm system using esp32 modules with some sensors. Central
+monitoring will be living inside a raspberry pi 3 as a access point. 
 
 # Cuestionario de proyecto
 
