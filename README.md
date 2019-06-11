@@ -10,17 +10,16 @@ monitoring will be living inside a raspberry pi 3 as a access point.
 
 |Item|Respuesta|
 |----|-------|
-|Name of the project|Home system alarm using ESP32 modules|
-|Description||
-|Case|Sensor: Case IP profesional, con antena externa. Alerta: Case en epoxy transparente|
-|Solar o alimentación alternativa|Solar y batería grande para sensor de rayería, carga inductiva para dispositivos de alerta|
-|Presentación de datos al usuario|Existen gráficas de AdafruitIO. Los dispositivos de alerta tienen una pantalla con el número de eventos en la última hora|
-|Entrada de datos por el usuario|Ninguno|
-|Etapas: 1.|Prueba en San José: Solo un sensor de rayería, un dispositivo de alerta. Comparar con [Lightning maps](https://www.lightningmaps.org/)|
-|2.|Producción en Isla del Coco: Tres sensores individuales de rayería, en posiciones opuestas. Varios sensores de alerta.|
-|3.|Futuro: Realizar cálculo de Time-of-Arrival (TOA), para poder localizar rayos en un mapa. Compatibilidad con [Blitzortung](http://es.blitzortung.org/cover_your_area.php)|
-|Hardware: Dispositivo Sensor|TTGO-TBeam, batería 18650, [sensor EMP](https://www.tindie.com/products/SMDKing/emp-sensor-detect-lightning-and-other-phenomena/)|
-|Hardware: Dispositivo de Alerta|TTGO ESP32+OLED, batería, cargador inductivo. Alertas visuales y auditivas a definir.|
+|Name of the project|Home system alarm using ESP32 modules + Raspberry Pi 3|
+|Description|Make an alarm home system using ESP32 modules and a Rasberry Pi 3 for processing and communication.|
+|User interface|Main usage will be thorugh a telegram bot for activation and notifications|
+|Stage 1.| Proof of concept using RCWL-0516 Human Body Detector Module|
+|Stage 2.| Infrastructure design using Raspbian running in a Raspberry PI 3|
+|Stage 3.| Future: Armed and alarm through telegram |
+|Stage 4.| Future: Interface support through Nextion NX3224T024 or Sealed Membrane 4X4 Button Pad|
+|Stage 5.| Future: Siren home system|
+|Hardware: Proximity Sensor|Human Body Detector Module, [RCWL-0516](https://www.crcibernetica.com/rcwl-0516-human-body-detector-module/)|
+|Hardware: Alarm device|TTGO ESP32+OLED (https://www.crcibernetica.com/ttgo-esp32-with-lora-and-oled-display-us915/)|
 |Servicios|Adafruit.IO|
 |Software|En Arduino, y Node-Red|
 |Posibles problemas|Sensor de rayería, carga inductiva, case en epoxy transparente, AdafruitIO en Node-RED|
