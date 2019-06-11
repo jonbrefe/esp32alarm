@@ -4,7 +4,7 @@
 | RCWL-0516 PIN|           ESP32 PIN|
 |----|------|
 |     GND|                    GND|
-|     OUT|                     0|
+|     OUT|                     22|
 |     VIN|                     5V|
 
  Info
