@@ -54,7 +54,8 @@ by node-red.
 
 ### Activation and events notification
 Management of the alarm, activation and notification of events will
-initially send through a Telegram BOT
+initially send through a Telegram BOT. Sending a secret to code and
+validation on the chat-id and user account.
 
 
 
