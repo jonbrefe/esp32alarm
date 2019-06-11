@@ -3,7 +3,7 @@
  PINs
  RCWL-0516 PIN           ESP32 PIN
      GND                    GND
-     OUT                     0
+     OUT                     22
      VIN                     5V
  Info
   RCWL-0516 (https://github.com/jdesbonnet/RCWL-0516/)
@@ -63,7 +63,7 @@ void loop(void) {
   #if OLED==1
     // Clear OLED buffer
     u8g2.clearBuffer();
-    u8g2.setFont(u8g2_font_lucasfont_alternate_tf);
+    u8g2.setFont(u8g2_font_crox3cb_tf);
   #endif
   int sensorValue = digitalRead(SensorPin);
   if (sensorValue == HIGH) {
@@ -72,7 +72,7 @@ void loop(void) {
     #endif
     Serial.println("Motion detected!");
     #if OLED==1
-        u8g2.drawStr(0,15,"Motion");
+        u8g2.drawStr(0,25,"Motion");
         u8g2.sendBuffer();
     #endif
     #if BUZZER==1
@@ -86,7 +86,7 @@ void loop(void) {
     #endif
     //Serial.println("No motion!");
     #if OLED==1
-        u8g2.drawStr(0,15,"NO motion");
+        u8g2.drawStr(0,25,"NO motion");
         u8g2.sendBuffer();
     #endif
   }
