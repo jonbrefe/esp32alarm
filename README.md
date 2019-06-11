@@ -3,9 +3,10 @@ Alarm based on esp32 modules
 
 ## Description
 Have a home alarm system using esp32 modules with some sensors. Central
-monitoring will be living inside a raspberry pi 3 as a access point. 
+monitoring will be running inside a raspberry pi 3 as a access point.
+Using the raspberry will allow the creation of logs of events for future references
 
-# Cuestionario de proyecto
+# Proyect questionnaire
 
 
 |Item|Answer|
@@ -20,6 +21,7 @@ monitoring will be living inside a raspberry pi 3 as a access point.
 |Stage 5.| Future: Siren home system|
 |Hardware: Proximity Sensor|Human Body Detector Module, [RCWL-0516](https://www.crcibernetica.com/rcwl-0516-human-body-detector-module/)|
 |Hardware: Alarm device|ESP32 [TTGO ESP32 with Lora and OLED Display (US915)](https://www.crcibernetica.com/ttgo-esp32-with-lora-and-oled-display-us915/)|
-|Servicios|Adafruit.IO|
-|Software|En Arduino, y Node-Red|
-|Posibles problemas|Sensor de rayería, carga inductiva, case en epoxy transparente, AdafruitIO en Node-RED|
+|Hardware: Management device|[Raspberry Pi 3 B+](https://www.crcibernetica.com/raspberry-pi-3-b-latest-version/)|
+|Service|Telegram BOT|
+|Software|Arduino, Raspbian, Ansible and Node-Red|
+|Possible problems|Security design problems, actual traffic will be transfer through a hidden SSID protected with hard password over WPA2|
