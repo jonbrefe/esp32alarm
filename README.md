@@ -65,5 +65,5 @@ Make a touch interface using a Nextion screen or using a sealsed membrane to
 enter a code to activate or disable the alarm system
 
 ![Nextion](doc/media/nextion-nx3224t024.png) 
-
+![Membrane pad](doc/media/pad.png)
 
