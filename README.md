@@ -58,12 +58,20 @@ initially send through a Telegram BOT
 
 
 
-## Stage 4: Physical interface management
+## Stage 4: Physical interface management (Future)
 
 ### Touch screen or button pad support
-Make a touch interface using a Nextion screen or using a sealsed membrane to
+Make a touch interface using a Nextion screen or using a sealed membrane to
 enter a code to activate or disable the alarm system
 
 ![Nextion](doc/media/nextion-nx3224t024.png) 
 ![Membrane pad](doc/media/pad.png)
+
+
+## Stage 5: Siren home system (Future)
+
+### Make a loud sound in case of the alarm is trigged
+Using a Siren powered by a 12v battery. The Siren will be controlled by
+another ESP32 module
+
 
