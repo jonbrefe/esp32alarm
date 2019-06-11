@@ -37,6 +37,9 @@ Proof of concept will have the sensor connected and it will display a test
 on the OLED once a motion is detected. The code will have support to enable
 or disabled the OLED and a buzzer connected to the ESP32
 
+
+
+
 ## Stage 2: Infrastructure design
 
 ### Infrastructure design with Raspberry PI 3
@@ -44,6 +47,7 @@ Infrastructure running in a Raspberry Pi 3 and Raspbian a port of Debian.
 The Raspberry Pi 3 will work as WIFI gateway for the ESP32 modules. Message
 traffics are send to a MQTT (mosquitto) to the RPi3. Events will be process
 by node-red.
+
 
 
 ## Stage 3: Alarm management
@@ -54,7 +58,12 @@ initially send through a Telegram BOT
 
 
 
-Proof of concept will have the sensor connected and it will display a test
-on the OLED once a motion is detected. The code will have support to enable
-or disabled the OLED and a buzzer connected to the ESP32
+## Stage 4: Physical interface management
+
+### Touch screen or button pad support
+Make a touch interface using a Nextion screen or using a sealsed membrane to
+enter a code to activate or disable the alarm system
+
+![Nextion](doc/media/nextion-nx3224t024.png) 
+
 
