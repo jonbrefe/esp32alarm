@@ -16,7 +16,7 @@ Using the raspberry will allow the creation of logs of events for future referen
 |User interface|Main usage will be thorugh a telegram bot for activation and notifications|
 |Stage 1.| Proof of concept using RCWL-0516 Human Body Detector Module|
 |Stage 2.| Infrastructure design using Raspbian running in a Raspberry PI 3|
-|Stage 3.| Future: Armed and alarm through telegram |
+|Stage 3.| Armed and alarm through telegram |
 |Stage 4.| Future: Interface support through Nextion NX3224T024 or Sealed Membrane 4X4 Button Pad|
 |Stage 5.| Future: Siren home system|
 |Hardware: Proximity Sensor|Human Body Detector Module, [RCWL-0516](https://www.crcibernetica.com/rcwl-0516-human-body-detector-module/)|
@@ -25,3 +25,36 @@ Using the raspberry will allow the creation of logs of events for future referen
 |Service|Telegram BOT|
 |Software|Arduino, Raspbian, Ansible and Node-Red|
 |Possible problems|Security design problems, actual traffic will be transfer through a hidden SSID protected with hard password over WPA2|
+
+# Work
+
+## Stage 1: PoC
+
+### Proof of Concept (PoC)
+Proof of concept using the human body present sensor.
+
+Proof of concept will have the sensor connected and it will display a test
+on the OLED once a motion is detected. The code will have support to enable
+or disabled the OLED and a buzzer connected to the ESP32
+
+## Stage 2: Infrastructure design
+
+### Infrastructure design with Raspberry PI 3
+Infrastructure running in a Raspberry Pi 3 and Raspbian a port of Debian.
+The Raspberry Pi 3 will work as WIFI gateway for the ESP32 modules. Message
+traffics are send to a MQTT (mosquitto) to the RPi3. Events will be process
+by node-red.
+
+
+## Stage 3: Alarm management
+
+### Activation and events notification
+Management of the alarm, activation and notification of events will
+initially send through a Telegram BOT
+
+
+
+Proof of concept will have the sensor connected and it will display a test
+on the OLED once a motion is detected. The code will have support to enable
+or disabled the OLED and a buzzer connected to the ESP32
+
